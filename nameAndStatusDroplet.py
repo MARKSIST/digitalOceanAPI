@@ -2,12 +2,13 @@ import requests
 
 
 def nameAndStausDroplet(token, url):
-    header = {'Authorization': f'Bearer {token}'}
-    data = requests.get(url, headers=header).json()
-    droplets = data['droplets']
+    # get info about all droplets
+    droplets = requests.get(
+        url, headers={'Authorization': f'Bearer {token}'}).json()['droplets']
     listOfDroplets = []
+    # loop through all droplets
     for item in range(len(droplets)):
-        status = droplets[item]['status']
-        name = droplets[item]['name']
-        listOfDroplets.append([name, status])
+        # create list with name and status of each droplet
+        listOfDroplets.append(
+            [droplets[item]['name'], droplets[item]['status']])
     return(listOfDroplets)
